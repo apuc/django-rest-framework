@@ -1,0 +1,32 @@
+{% extends "html/base.html" %}
+
+{% block content %}
+    <div class="container mx-auto my-5 text-center col-6">
+        <h4 class="text-center">User list</h4>
+        <div id="response" class="text-left bg-light pt-5">
+            <div class="dropdown text-right">
+              <button class="btn btn-primary dropdown-toggle mx-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change ordering</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{% url 'user:list-users' %}?ordering=email">Email ASC</a>
+                    <a class="dropdown-item" href="{% url 'user:list-users' %}?ordering=-email">Email DESC</a>
+                    <a class="dropdown-item" href="{% url 'user:list-users' %}?ordering=username">Username ASC</a>
+                    <a class="dropdown-item" href="{% url 'user:list-users' %}?ordering=-username">Username DESC</a>
+              </div>
+            </div>
+            <div class="container">
+                {% for user in data %}
+                    <p>User {{ user.id }}:</p>
+                    <p>username: {{ user.username }}</p>
+                    <p>email: {{ user.email }}</p>
+                    {% if user.photo %}
+                        <div class="col-5 p-0">
+                            <img class="img-fluid img-thumbnail" src="/{{ user.photo.name }}">
+                        </div>
+                    {% else %}
+                        <p>No photo available</p><br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
